@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dleplugin>
+	<name>Wymuszanie zmiany rangi</name>
+	<description></description>
+	<icon></icon>
+	<version></version>
+	<dleversion></dleversion>
+	<versioncompare>==</versioncompare>
+	<upgradeurl></upgradeurl>
+	<filedelete>0</filedelete>
+	<needplugin></needplugin>
+	<mnotice>0</mnotice>
+	<mysqlinstall><![CDATA[]]></mysqlinstall>
+	<mysqlupgrade><![CDATA[]]></mysqlupgrade>
+	<mysqlenable><![CDATA[]]></mysqlenable>
+	<mysqldisable><![CDATA[]]></mysqldisable>
+	<mysqldelete><![CDATA[]]></mysqldelete>
+	<phpinstall><![CDATA[]]></phpinstall>
+	<phpupgrade><![CDATA[]]></phpupgrade>
+	<phpenable><![CDATA[]]></phpenable>
+	<phpdisable><![CDATA[]]></phpdisable>
+	<phpdelete><![CDATA[]]></phpdelete>
+	<notice><![CDATA[]]></notice>
+	<file name="engine/modules/profile.php">
+		<operation action="before">
+			<searchcode><![CDATA[	if( $is_logged and $user_group[$row['user_group']]['time_limit'] and ($member_id['user_id'] == $row['user_id'] or $member_id['user_group'] < 3) ) {]]></searchcode>
+			<replacecode><![CDATA[		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		if ($member_id['time_limit'] > "" ){
+			$date_now = date("Y-m-d H:i");
+			$limit = $member_id['time_limit'];
+			if $date_now > $limit {
+			//	$db->query( "UPDATE " . USERPREFIX . "_users user_group = '4', time_limit = '' WHERE user_id ='{$id}'" );
+              	$db->query( "UPDATE " . USERPREFIX . "_users SET user_group = '4', time_limit = '' WHERE user_id ='{$id}'" ); 
+			}
+			
+		}
+						
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+	</file>
+</dleplugin>
